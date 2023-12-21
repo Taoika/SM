@@ -7,30 +7,6 @@ import {
 } from 'antd';
 
 const { Option } = Select;
-  
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 7 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
-    },
-  };
-  
-  const tailFormItemLayout = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 10,
-      },
-      sm: {
-        span: 16,
-        offset: 9,
-      },
-    },
-  };
 
 export default function Register() {
 
@@ -52,7 +28,8 @@ export default function Register() {
   return (
     <div className='Register'>
         <Form
-            {...formItemLayout}
+            labelCol={{ span: 7 }}
+            wrapperCol={{ span: 16 }}
             form={form}
             name="registerForm"
             onFinish={onFinish}
@@ -61,8 +38,8 @@ export default function Register() {
         >
 
         <Form.Item
-            name="name"
-            label="昵称"
+            name="username"
+            label="用户名"
             rules={[{ required: true, message: '请输入昵称!', whitespace: true }]}
         >
             <Input />
@@ -113,7 +90,7 @@ export default function Register() {
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item wrapperCol={{ offset: 9, span: 16 }}>
             <Button type="primary" htmlType="submit">
             注册
             </Button>
