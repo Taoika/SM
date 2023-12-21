@@ -1,4 +1,5 @@
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 import Home from "../pages/Home";
 
 const routes = [
@@ -6,6 +7,10 @@ const routes = [
     {
         path: '/Login',
         element: <Login />,
+    },
+    {
+        path: '/Register',
+        element: <Register />,
     },
     {
         path: '/Home',

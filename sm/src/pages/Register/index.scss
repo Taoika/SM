@@ -1,0 +1,22 @@
+.Register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #108ee9 url("https://pic-1316520471.cos.ap-guangzhou.myqcloud.com/bg3.png") no-repeat center;
+
+    #registerForm {
+        border: 1px solid rgba(0,0,0,.5);
+        border-radius: 10px;
+        padding: 40px;
+        padding-top: 70px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        border-right: 1px solid rgba(255, 255, 255, 0.3);
+        /* 盒子阴影 x轴偏移量 y轴偏移量 扩散半径 颜色 */
+        box-shadow: 0 25px 45px rgba(0, 0, 0, .2);
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+    } 
+}
