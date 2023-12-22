@@ -6,6 +6,10 @@
     .Col {
         .Card {
             height: 100%;
+            .grid {
+                width: 100%;
+                text-align: left;
+            }
         }
     }
 }

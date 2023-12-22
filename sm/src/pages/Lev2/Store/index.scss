@@ -1,0 +1,20 @@
+.Store {
+    width: 100%;
+    height: calc(100vh - 64px);
+    padding: 20px;
+    background-color: antiquewhite;
+    .Col {
+        .Card {
+            height: 100%;
+            .grid {
+                width: 100%;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .aStore {
+                text-align: left;
+            }
+        }
+    }
+}
