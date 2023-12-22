@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './index.scss'
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
-import { setUsername } from '../../../store/slice/userInfo';
+import { setUsername, setAddress, setPhone, setUserId } from '../../../store/slice/userInfo';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons'
 import Nav from '../../../components/Nav';
@@ -17,13 +17,19 @@ export default function Home() {
 
   const { username } = useAppSelector(state => state.userInfo)
 
-  useEffect(()=>{
+  useEffect(()=>{ // 获取用户信息
     console.log(username);
     
     if(!username) return;
     axios.get(`http://localhost:8633/personInfo?username=${username}`).then(
       res => {
-        console.log(res);
+        if(res.data.code == 200) {
+          const data = res.data.resd;
+          dispatch(setUserId(data.userId))
+          dispatch(setUsername(data.userName))
+          dispatch(setPhone(data.phone))
+          dispatch(setAddress(data.permission))
+        }
       },
       err => {
         console.log(err);

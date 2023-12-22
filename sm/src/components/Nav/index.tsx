@@ -1,5 +1,5 @@
 import './index.scss'
-import { ShoppingCartOutlined, HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, HomeOutlined, UserOutlined, ShopOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +20,11 @@ const navContent = [
         key: 'UserInfo',
         icon: <UserOutlined />,
         label: <Link to='UserInfo'>我的</Link>,
+    },
+    {
+        key: 'store',
+        icon: <ShopOutlined />,
+        label: <Link to='Store'>我的店铺</Link>,
     }
 ]
 

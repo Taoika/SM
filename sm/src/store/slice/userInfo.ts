@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '..';
 
 const initialState = {
+    userId: '',
     username: '',
     phone: '',
-    address: ''
+    address: '',
+    permission: '',
 }
 
 export const userInfoSlice = createSlice({
@@ -19,15 +21,21 @@ export const userInfoSlice = createSlice({
         },
         setAddress: (state, action: PayloadAction<string>) => {
             state.address = action.payload;
+        },
+        setUserId: (state, action: PayloadAction<string>) => {
+            state.userId = action.payload;
+        },
+        setPermission: (state, action: PayloadAction<string>) => {
+            state.permission = action.payload;
         }
     },
 });
 
-export const { setUsername, setPhone, setAddress } = userInfoSlice.actions
+export const { setUsername, setPhone, setAddress, setUserId } = userInfoSlice.actions
 
 export const selectUserInfo = (state: RootState) => {
-    const { username, phone, address } = state.userInfo;
-    return { username, phone, address } ;
+    const { username, phone, address, userId, permission } = state.userInfo;
+    return { username, phone, address, userId, permission } ;
 }
 
 export default userInfoSlice.reducer
