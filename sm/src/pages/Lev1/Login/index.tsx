@@ -1,9 +1,10 @@
 import './index.scss'
-import { Button, Checkbox, Form, Input } from 'antd';
-
-const onFinish = (values: any) => {
-  console.log('Success:', values);
-};
+import { useNavigate } from 'react-router-dom';
+import { PicCenterOutlined } from '@ant-design/icons'
+import { Button, Form, Input } from 'antd';
+import { usePostReq } from '../../../hooks/request';
+import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { setUsername } from '../../../store/slice/userInfo';
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
@@ -16,8 +17,33 @@ type FieldType = {
 };
 
 export default function Login() {
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+  const { contextHolder, postReq } = usePostReq();
+
+  const onFinish = (values: any) => {
+    postReq('/login', values).then(
+      res => {
+        if(res) {
+          dispatch(setUsername(values.username))
+          localStorage.setItem('SM_user', JSON.stringify({username: values.username}))
+          navigate('/Home');
+        }
+      }
+    )
+  };
+
+  const toRegister = () => {
+    navigate('/Register')
+  }
+
   return (
     <div className='Login'>
+      {contextHolder}
+      <div className="toRegister" onClick={toRegister}>
+        <PicCenterOutlined />
+      </div>
       <Form
         name="loginForm"
         labelCol={{ span: 7 }}
@@ -41,14 +67,6 @@ export default function Login() {
           rules={[{ required: true, message: '请输入密码!' }]}
         >
           <Input.Password />
-        </Form.Item>
-
-        <Form.Item<FieldType>
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 9, span: 16 }}
-        >
-          <Checkbox>记住密码</Checkbox>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 9, span: 16 }}>

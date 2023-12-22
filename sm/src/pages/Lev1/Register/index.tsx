@@ -1,4 +1,9 @@
 import './index.scss'
+import { useNavigate } from 'react-router-dom'
+import { usePostReq } from '../../../hooks/request';
+import { LoginOutlined } from '@ant-design/icons'
+import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { setUsername } from '../../../store/slice/userInfo';
 import {
   Button,
   Form,
@@ -10,10 +15,23 @@ const { Option } = Select;
 
 export default function Register() {
 
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const { contextHolder, postReq } = usePostReq();
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
-      console.log('Received values of form: ', values);
+      const { password, phone, username } = values
+      const data = { password, phone, username }
+      postReq('/register', data).then(
+        res => {
+          if(res) {
+            localStorage.setItem('SM_user', JSON.stringify({username}))
+            dispatch(setUsername(username))
+            navigate('/Home');
+          }
+        }
+      )
     };
   
     const prefixSelector = (
@@ -25,8 +43,16 @@ export default function Register() {
       </Form.Item>
     );
 
+    const toLogin = () => {
+      navigate('/Login');
+    }
+
   return (
     <div className='Register'>
+        {contextHolder}
+        <div className="toLogin" onClick={toLogin}>
+          <LoginOutlined />
+        </div>
         <Form
             labelCol={{ span: 7 }}
             wrapperCol={{ span: 16 }}

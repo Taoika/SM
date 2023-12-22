@@ -2,28 +2,32 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '..';
 
 const initialState = {
-    token: '', 
-    userId: '',
-    name: '', 
+    username: '',
+    phone: '',
+    address: ''
 }
 
 export const userInfoSlice = createSlice({
     name: 'userInfo',
     initialState,
     reducers: {
-        setAllUserInfo: (state, action: PayloadAction<any>) => {
-            state.token = action.payload.token;
-            state.userId = action.payload.userId;
-            state.name = action.payload.name;
+        setUsername: (state, action: PayloadAction<string>) => {
+            state.username = action.payload;
+        },
+        setPhone: (state, action: PayloadAction<string>) => {
+            state.phone = action.payload;
+        },
+        setAddress: (state, action: PayloadAction<string>) => {
+            state.address = action.payload;
         }
     },
 });
 
-export const { setAllUserInfo } = userInfoSlice.actions
+export const { setUsername, setPhone, setAddress } = userInfoSlice.actions
 
 export const selectUserInfo = (state: RootState) => {
-    const {token, userId, name } = state.userInfo;
-    return {token, userId, name };
+    const { username, phone, address } = state.userInfo;
+    return { username, phone, address } ;
 }
 
 export default userInfoSlice.reducer
