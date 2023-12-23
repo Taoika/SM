@@ -7,29 +7,20 @@ import { LoginOutlined } from '@ant-design/icons'
 import Nav from '../../../components/Nav';
 import { Layout } from 'antd';
 import { useIdentidy } from '../../../hooks/useIdentidy';
-import { useReq } from '../../../hooks/request';
+import useGetInfo from '../../../hooks/useGetInfo';
 
 export default function Home() {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { contextHolder, getReq } = useReq();
+  const { contextHolder, getUserInfo} = useGetInfo()
   useIdentidy(); // 身份验证
 
   const { username } = useAppSelector(state => state.userInfo)
 
   useEffect(()=>{ // 获取用户信息    
     if(!username) return;
-    getReq('/personInfo', username).then(
-      res => {
-        const data: any = res;
-        dispatch(setUserId(data.userId))
-        dispatch(setUsername(data.userName))
-        dispatch(setPhone(data.phone))
-        dispatch(setAddress(data.address))
-        dispatch(setAddress(data.address))
-      }
-    )
+    getUserInfo()
   }, [username])
 
   const handleLogout = () => {

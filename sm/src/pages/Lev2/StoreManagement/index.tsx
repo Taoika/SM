@@ -11,6 +11,7 @@ export default function StoreManagement() {
     const dispatch = useAppDispatch()
     const { contextHolder, getReq, postReq} = useReq()
 
+    // 获取所有店铺信息
     const getAllStore = () => {
         getReq('/allStoreInfo').then(
             res => {

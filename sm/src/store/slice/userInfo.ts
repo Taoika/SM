@@ -8,6 +8,7 @@ const initialState = {
     address: '',
     permission: '',
     store: <any[]>[],
+    currentStore: '',
 }
 
 export const userInfoSlice = createSlice({
@@ -31,15 +32,18 @@ export const userInfoSlice = createSlice({
         },
         setStore: (state, action: PayloadAction<any[]>) => {
             state.store = action.payload;
+        },
+        setCurrentStore: (state, action: PayloadAction<string>) => {
+            state.currentStore = action.payload;
         }
     },
 });
 
-export const { setUsername, setPhone, setAddress, setUserId, setStore } = userInfoSlice.actions
+export const { setUsername, setPhone, setAddress, setUserId, setStore, setCurrentStore } = userInfoSlice.actions
 
 export const selectUserInfo = (state: RootState) => {
-    const { username, phone, address, userId, permission, store } = state.userInfo;
-    return { username, phone, address, userId, permission, store } ;
+    const { username, phone, address, userId, permission, store, currentStore } = state.userInfo;
+    return { username, phone, address, userId, permission, store, currentStore } ;
 }
 
 export default userInfoSlice.reducer
