@@ -7,33 +7,27 @@ import { LoginOutlined } from '@ant-design/icons'
 import Nav from '../../../components/Nav';
 import { Layout } from 'antd';
 import { useIdentidy } from '../../../hooks/useIdentidy';
-import axios from 'axios';
+import { useReq } from '../../../hooks/request';
 
 export default function Home() {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { contextHolder, getReq } = useReq();
   useIdentidy(); // 身份验证
 
   const { username } = useAppSelector(state => state.userInfo)
 
-  useEffect(()=>{ // 获取用户信息
-    console.log(username);
-    
+  useEffect(()=>{ // 获取用户信息    
     if(!username) return;
-    axios.get(`http://localhost:8633/personInfo?username=${username}`).then(
+    getReq('/personInfo', username).then(
       res => {
-        if(res.data.code == 200) {
-          const data = res.data.resd;
-          dispatch(setUserId(data.userId))
-          dispatch(setUsername(data.userName))
-          dispatch(setPhone(data.phone))
-          dispatch(setAddress(data.permission))
-        }
-      },
-      err => {
-        console.log(err);
-
+        const data: any = res;
+        dispatch(setUserId(data.userId))
+        dispatch(setUsername(data.userName))
+        dispatch(setPhone(data.phone))
+        dispatch(setAddress(data.address))
+        dispatch(setAddress(data.address))
       }
     )
   }, [username])
@@ -46,6 +40,7 @@ export default function Home() {
 
   return (
     <Layout className='Home'>
+      {contextHolder}
       <div className="logout" onClick={handleLogout}>
         <LoginOutlined />
       </div>

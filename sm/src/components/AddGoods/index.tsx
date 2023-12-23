@@ -25,7 +25,7 @@ export default function AddGoods() {
     <Form
     className='AddGoods'
     {...layout}
-    name="nest-messages"
+    name="AddGoods_form"
     onFinish={onFinish}
     style={{ maxWidth: 600 }}
     validateMessages={validateMessages}

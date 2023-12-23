@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { message } from 'antd';
 
-const usePostReq = () => {
+const useReq = () => {
 
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -34,7 +34,32 @@ const usePostReq = () => {
             )
         })
     }
-    return { contextHolder, postReq }
+
+    const getReq = (api: string, query: string) => {
+      return new Promise((resolve: any) => {
+        axios.get(`http://localhost:8633${api}?${query}=${query}`).then(
+          res => {
+            if(res.data.code == 200) {
+              resolve(res.data.resd)
+            }
+            else {
+              messageApi.open({
+                type: 'error',
+                content: `${res.data.msg}`,
+              });
+            }
+          },
+          err => {
+            messageApi.open({
+              type: 'error',
+              content: `${err.message}`,
+            });
+          }
+        )
+      })
+    }
+
+    return { contextHolder, postReq, getReq }
 }
 
-export { usePostReq }
+export { useReq }

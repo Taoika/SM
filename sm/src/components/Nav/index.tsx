@@ -22,10 +22,10 @@ const navContent = [
         label: <Link to='UserInfo'>我的</Link>,
     },
     {
-        key: 'store',
+        key: 'Store',
         icon: <ShopOutlined />,
         label: <Link to='Store'>我的店铺</Link>,
-    }
+    },
 ]
 
 export default function Nav() {

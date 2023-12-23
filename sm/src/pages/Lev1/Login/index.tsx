@@ -2,7 +2,7 @@ import './index.scss'
 import { useNavigate } from 'react-router-dom';
 import { PicCenterOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd';
-import { usePostReq } from '../../../hooks/request';
+import { useReq } from '../../../hooks/request';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import { setUsername } from '../../../store/slice/userInfo';
 
@@ -20,7 +20,7 @@ export default function Login() {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
-  const { contextHolder, postReq } = usePostReq();
+  const { contextHolder, postReq } = useReq();
 
   const onFinish = (values: any) => {
     postReq('/login', values).then(

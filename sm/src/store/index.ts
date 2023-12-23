@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userInfo from './slice/userInfo' // 自己写的切片
+import allStore from './slice/allStore'
 
 export const store = configureStore({
   reducer: {
     userInfo,
+    allStore
   },
 })
 

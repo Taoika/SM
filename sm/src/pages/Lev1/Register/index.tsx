@@ -1,6 +1,6 @@
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
-import { usePostReq } from '../../../hooks/request';
+import { useReq } from '../../../hooks/request';
 import { LoginOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import { setUsername } from '../../../store/slice/userInfo';
@@ -17,7 +17,7 @@ export default function Register() {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const { contextHolder, postReq } = usePostReq();
+    const { contextHolder, postReq } = useReq();
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
