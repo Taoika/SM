@@ -5,6 +5,7 @@ import Cargo from "../pages/Lev2/Cargo";
 import ShoppingCart from "../pages/Lev2/ShoppingCart";
 import UserInfo from "../pages/Lev2/UserInfo";
 import Store from "../pages/Lev2/Store";
+import StoreManagement from "../pages/Lev2/StoreManagement";
 
 const routes = [
     // 登录页
@@ -35,6 +36,10 @@ const routes = [
             {
                 path: 'Store',
                 element: <Store />,
+            },
+            {
+                path: 'StoreManagement',
+                element: <StoreManagement />,
             },
             {
                 path: '',

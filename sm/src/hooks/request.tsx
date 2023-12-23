@@ -6,7 +6,7 @@ const useReq = () => {
     const [messageApi, contextHolder] = message.useMessage();
 
     const postReq = (api: string, data: any) => {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             axios.post(`http://localhost:8633${api}`, data).then(
                 res => {
                   if(res.data.code == 200) {
@@ -22,22 +22,22 @@ const useReq = () => {
                       content: `${res.data.msg}`,
                     });
                   }
-                  resolve(false);
+                  reject(true);
                 },
                 err => {
                   messageApi.open({
                     type: 'error',
                     content: `${err.message}`,
                   });
-                  resolve(false);
+                  reject(true);
                 }
             )
         })
     }
 
-    const getReq = (api: string, query: string) => {
+    const getReq = (api: string, query?: string) => {
       return new Promise((resolve: any) => {
-        axios.get(`http://localhost:8633${api}?${query}=${query}`).then(
+        axios.get(`http://localhost:8633${api}${query ? `?${query}=${query}` : ''}`).then(
           res => {
             if(res.data.code == 200) {
               resolve(res.data.resd)

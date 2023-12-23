@@ -25,11 +25,9 @@ export default function Register() {
       const data = { password, phone, username }
       postReq('/register', data).then(
         res => {
-          if(res) {
-            localStorage.setItem('SM_user', JSON.stringify({username}))
-            dispatch(setUsername(username))
-            navigate('/Home');
-          }
+          localStorage.setItem('SM_user', JSON.stringify({username}))
+          dispatch(setUsername(username))
+          navigate('/Home');
         }
       )
     };

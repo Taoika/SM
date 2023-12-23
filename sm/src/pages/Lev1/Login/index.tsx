@@ -25,11 +25,9 @@ export default function Login() {
   const onFinish = (values: any) => {
     postReq('/login', values).then(
       res => {
-        if(res) {
-          dispatch(setUsername(values.username))
-          localStorage.setItem('SM_user', JSON.stringify({username: values.username}))
-          navigate('/Home');
-        }
+        dispatch(setUsername(values.username))
+        localStorage.setItem('SM_user', JSON.stringify({username: values.username}))
+        navigate('/Home');
       }
     )
   };

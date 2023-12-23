@@ -1,0 +1,24 @@
+.StoreManagement {
+    width: 100%;
+    height: calc(100vh - 64px);
+    padding: 20px;
+    background-color: antiquewhite;
+    .Col {
+        .Card {
+            height: 100%;
+            .grid {
+                width: 100%;
+                text-align: left;
+            }
+
+            .aStore {
+                display: flex;
+                align-items: center;
+
+                p {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
