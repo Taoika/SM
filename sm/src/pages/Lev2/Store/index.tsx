@@ -6,29 +6,48 @@ import ApplyStore from '../../../components/ApplyStore';
 import { useReq } from '../../../hooks/request';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import { setStore, setCurrentStore } from '../../../store/slice/userInfo';
+import { setStoreGoods } from '../../../store/slice/allStore';
+import useGetInfo from '../../../hooks/useGetInfo';
 
 export default function Store() {
 
   const { userId, store, currentStore } = useAppSelector(state => state.userInfo)
-  const { contextHolder, getReq} = useReq()
+  const { storeGoods } = useAppSelector(state => state.allStore)
+  const { contextHolder, getReq, postReq} = useReq()
   const dispatch = useAppDispatch()
+  const { getStoreId, getGoods } = useGetInfo()
 
-  useEffect(() => {
+  useEffect(() => { // 获取全部自己的全部店铺信息
     if(!userId) return ;
-    getReq('/storeInfo', userId).then(
+    getReq('/storeInfo', 'userId', userId).then(
       res => {
         const data = res as any[];
         dispatch(setStore(data))
-        
       }
     )
   },[userId])
 
+  useEffect(()=>{
+    getGoods()
+  },[currentStore]);
+
+  // 当前店铺
   const handleCurrentStore = (storeName: string, storeState: number) => {
     if(storeState == 1) {
       dispatch(setCurrentStore(storeName))
     }
-    
+  }
+
+  const removeGoods = (cargoName: string) => {
+    const data = {
+      state: 1,
+      cargoName,
+  }
+  postReq('/removeStore', data).then(
+      res => {
+        getGoods()
+      }
+  )
   }
 
   return (
@@ -39,7 +58,7 @@ export default function Store() {
             <ApplyStore/>
         </Card>
       </Col>
-      <Col className='Col' span={4}>
+      <Col className='Col' span={5}>
         <Card title="店铺选择" className='Card'>
             { 
                 store.map(value => (
@@ -67,9 +86,30 @@ export default function Store() {
             <AddGoods/>
         </Card>
       </Col>
-      <Col className='Col' span={9}>
+      <Col className='Col' span={4}>
         <Card className='Card' title={`商品列表(店铺：${currentStore})`} bordered={false}> 
-            <p>Card content</p>
+            {
+              storeGoods.filter(value => value.cargoState == 0).map(value => (
+                <Card.Grid className='grid goods'>
+                  <p><strong>{value.cargoName}</strong></p>
+                  <p><strong>余货量: </strong>{value.quantity}</p>
+                  <Button onClick={()=>removeGoods(value.cargoName)}>下架</Button>
+                </Card.Grid>
+              ))
+            }
+        </Card>
+      </Col>
+      <Col className='Col' span={4}>
+        <Card className='Card' title={`已下架商品(店铺：${currentStore})`} bordered={false}> 
+            {
+              storeGoods.filter(value => value.cargoState == 1).map(value => (
+                <Card.Grid className='grid goods'>
+                  <p><strong>{value.cargoName}</strong></p>
+                  <p><strong>余货量: </strong>{value.quantity}</p>
+                  <Button>下架</Button>
+                </Card.Grid>
+              ))
+            }
         </Card>
       </Col>
     </Row>

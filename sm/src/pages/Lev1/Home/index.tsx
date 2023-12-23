@@ -9,6 +9,7 @@ import { Layout } from 'antd';
 import { useIdentidy } from '../../../hooks/useIdentidy';
 import useGetInfo from '../../../hooks/useGetInfo';
 
+
 export default function Home() {
 
   const navigate = useNavigate()
@@ -16,12 +17,11 @@ export default function Home() {
   const { contextHolder, getUserInfo} = useGetInfo()
   useIdentidy(); // 身份验证
 
-  const { username } = useAppSelector(state => state.userInfo)
+  const { username, userId } = useAppSelector(state => state.userInfo)
 
   useEffect(()=>{ // 获取用户信息    
-    if(!username) return;
     getUserInfo()
-  }, [username])
+  }, [username, userId])
 
   const handleLogout = () => {
     dispatch(setUsername(''))

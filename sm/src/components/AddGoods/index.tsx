@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Form, Input, InputNumber } from 'antd';
 import { useAppSelector } from '../../store/hook';
 import { useReq } from '../../hooks/request';
+import useGetInfo from '../../hooks/useGetInfo';
 
 const layout = {
   labelCol: { span: 6 },
@@ -18,14 +19,19 @@ const validateMessages = {
 
 export default function AddGoods() {
 
-  const { contextHolder, postReq} = useReq()
-  const { currentStore, store } = useAppSelector(state => state.userInfo)
+  const { contextHolder, postReq, getReq} = useReq()
+  const { userId } = useAppSelector(state => state.userInfo)
+  const { getStoreId, getGoods } = useGetInfo();
 
   const onFinish = (values: any) => {
     console.log(values);
     const { cargoName, price, quantity } = values
-    const storeId = store.filter(value => value.storeName == currentStore)[0].storeId;
-    postReq('/handleGoods', { storeId, cargoName, price, quantity })
+    const storeId = getStoreId();
+    if(!storeId) return;
+    
+    postReq('/addGoods', { storeId, cargoName, price, quantity }).then(res => {
+      getGoods()
+    })
   };
 
   return (
