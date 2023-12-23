@@ -2,7 +2,6 @@ import Login from "../pages/Lev1/Login";
 import Register from "../pages/Lev1/Register";
 import Home from "../pages/Lev1/Home";
 import Cargo from "../pages/Lev2/Cargo";
-import ShoppingCart from "../pages/Lev2/ShoppingCart";
 import UserInfo from "../pages/Lev2/UserInfo";
 import Store from "../pages/Lev2/Store";
 import StoreManagement from "../pages/Lev2/StoreManagement";
@@ -24,10 +23,6 @@ const routes = [
             {
                 path: 'Cargo',
                 element: <Cargo />,
-            },
-            {
-                path: 'ShoppingCart',
-                element: <ShoppingCart />,
             },
             {
                 path: 'UserInfo',

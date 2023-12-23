@@ -12,11 +12,6 @@ const navContent = [
         label: <Link to='Cargo'>主页</Link>,
     },
     {
-        key: 'ShoppingCart',
-        icon: <ShoppingCartOutlined />,
-        label: <Link to='ShoppingCart'>购物车</Link>,
-    },
-    {
         key: 'UserInfo',
         icon: <UserOutlined />,
         label: <Link to='UserInfo'>我的</Link>,

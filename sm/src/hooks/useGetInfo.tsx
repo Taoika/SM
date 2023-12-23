@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { setUsername, setAddress, setPhone, setUserId } from '../store/slice/userInfo';
-import { setStoreGoods } from '../store/slice/allStore';
+import { setStoreGoods } from '../store/slice/goods';
 import { useReq } from './request';
 
 const useGetInfo = () => {

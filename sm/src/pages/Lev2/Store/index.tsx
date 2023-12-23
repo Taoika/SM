@@ -6,13 +6,13 @@ import ApplyStore from '../../../components/ApplyStore';
 import { useReq } from '../../../hooks/request';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import { setStore, setCurrentStore } from '../../../store/slice/userInfo';
-import { setStoreGoods } from '../../../store/slice/allStore';
+import { setStoreGoods } from '../../../store/slice/goods';
 import useGetInfo from '../../../hooks/useGetInfo';
 
 export default function Store() {
 
   const { userId, store, currentStore } = useAppSelector(state => state.userInfo)
-  const { storeGoods } = useAppSelector(state => state.allStore)
+  const { storeGoods } = useAppSelector(state => state.goods)
   const { contextHolder, getReq, postReq} = useReq()
   const dispatch = useAppDispatch()
   const { getStoreId, getGoods } = useGetInfo()
@@ -38,6 +38,7 @@ export default function Store() {
     }
   }
 
+  // 下架商品
   const removeGoods = (cargoName: string) => {
     const data = {
       state: 1,
