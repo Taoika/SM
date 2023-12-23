@@ -127,7 +127,7 @@ router.post('/applyStore', async (ctx, next) => {
 
 })
 
-// 根据id获取店铺信息
+// 根据用户id获取店铺信息
 router.get('/storeInfo', async (ctx) => {
     const userId = ctx.request.querystring.split('=')[1]
     let resd = null
@@ -288,6 +288,86 @@ router.post('/removeStore', async (ctx, next) => {
         };
     }
 
+})
+
+// 获取全部商品信息
+router.get('/allGoods', async (ctx) => {
+    let resd = null
+    await userModel.findAllCargo().then(
+        res => {
+            resd = res;
+        },
+        err => {
+            console.log('err->', err);
+        }
+    )
+    ctx.type = 'application/json';
+    if(resd){
+        ctx.body = {
+            code: 200,
+            resd
+        };
+    }
+    else {
+        ctx.body = {
+            code: 400,
+            msg: '该店铺下暂时没有商品'
+        };
+    }
+})
+
+// 商品加入购物车
+router.post('/addToCart', async (ctx, next) => {
+    let flag = false
+    await userModel.addUserCargo(ctx.request.body).then(
+        res => {
+            flag = true
+        },
+        err => {
+            console.log('err->', err);
+        }
+    )
+    ctx.type = 'application/json';
+    if(flag){
+        ctx.body = {
+            code: 200,
+            msg: '商品已加入购物车'
+        };
+    }
+    else {
+        ctx.body = {
+            code: 400,
+            msg: '商品加入购物车失败'
+        };
+    }
+
+})
+
+// 根据用户id获取店铺信息
+router.get('/storeInfo', async (ctx) => {
+    const userId = ctx.request.querystring.split('=')[1]
+    let resd = null
+    await userModel.findStore('userId', userId).then(
+        res => {
+            resd = res;
+        },
+        err => {
+            console.log('err->', err);
+        }
+    )
+    ctx.type = 'application/json';
+    if(resd){
+        ctx.body = {
+            code: 200,
+            resd
+        };
+    }
+    else {
+        ctx.body = {
+            code: 400,
+            msg: '该用户下没有店铺'
+        };
+    }
 })
 
 module.exports= router

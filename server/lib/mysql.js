@@ -92,6 +92,18 @@ const alterCargo = function (values) {
     return query(_sql)
 }
 
+// 查询所有上架商品
+const findAllCargo = function (value) {
+    const  _sql = `SELECT * FROM cargo as c join store as s on c.storeId=s.storeId where c.cargoState=0`
+    return query(_sql)
+}
+
+// 添加用户商品关联
+const addUserCargo = function (values) {
+    const { userId, cargoId } = values
+    const  _sql = `INSERT INTO user_cargo (ucState, userId, cargoId) VALUES (0, ${userId}, ${cargoId})`
+    return query(_sql)
+}
 
 module.exports={
     findUserInfo,
@@ -102,5 +114,7 @@ module.exports={
     alterStore,
     addCargo,
     findCargo,
-    alterCargo
+    alterCargo,
+    findAllCargo,
+    addUserCargo
 }
