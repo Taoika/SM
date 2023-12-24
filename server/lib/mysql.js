@@ -68,7 +68,7 @@ const findAllStore = function () {
 // 修改store状态
 const alterStore = function (values) {
     const { state, storeName } = values
-    const  _sql = `UPDATE store SET storeState=${state} where storeName=${storeName}`
+    const  _sql = `UPDATE store SET storeState=${state} where storeName="${storeName}"`
     return query(_sql)
 }
 
@@ -101,7 +101,48 @@ const findAllCargo = function (value) {
 // 添加用户商品关联
 const addUserCargo = function (values) {
     const { userId, cargoId } = values
-    const  _sql = `INSERT INTO user_cargo (ucState, userId, cargoId) VALUES (0, ${userId}, ${cargoId})`
+    const  _sql = `INSERT INTO user_cargo (ucState, userId, cargoId, quantity) VALUES (0, ${userId}, ${cargoId}, 1)`
+    return query(_sql)
+}
+
+// 修改购物车商品数量
+const alterQuantityOfUserCargo = function (values) {
+    const { userId, cargoId, state } = values
+    const  _sql = `UPDATE user_cargo SET quantity=quantity+1 where userId=${userId} and cargoId=${cargoId} and ucState=${state}`
+    return query(_sql)
+}
+
+// 查询某用户的关联商品
+const findUserCargo = function (value) {
+    const  _sql = `SELECT * FROM cargo c JOIN user_cargo uc on c.cargoId=uc.cargoId where uc.userId=${value}`
+    return query(_sql)
+}
+
+// 查询某用户某商品某状态的信息
+const findByUserCargo = function (values) {
+    const { userId, cargoId, state } = values
+    const  _sql = `SELECT * FROM cargo c JOIN user_cargo uc on c.cargoId=uc.cargoId where uc.userId=${userId} and uc.cargoId=${cargoId} and uc.ucState=${state}`
+    return query(_sql)
+}
+
+// 从user_cargo表中删除数据
+const delUserCargo = function (value) {
+    const { ucId } = value
+    const  _sql = `DELETE FROM user_cargo where ucId=${ucId}`
+    return query(_sql)
+}
+
+// 修改用户商品状态
+const alterUserCargo = function (values) {
+    const { ucId, state, ucState } = values
+    const  _sql = `UPDATE user_cargo SET ucState=${state} where ucId=${ucId} and ucState=${ucState}`
+    return query(_sql)
+}
+
+// 修改商品数量
+const alterQuantityOfCargo = function (values) {
+    const { ucId, quantity } = values
+    const  _sql = `UPDATE cargo c join user_cargo uc on c.cargoId=uc.cargoId SET c.quantity=c.quantity-${quantity} where uc.ucId=${ucId}`
     return query(_sql)
 }
 
@@ -116,5 +157,11 @@ module.exports={
     findCargo,
     alterCargo,
     findAllCargo,
-    addUserCargo
+    addUserCargo,
+    findUserCargo,
+    delUserCargo,
+    alterUserCargo,
+    alterQuantityOfCargo,
+    alterQuantityOfUserCargo,
+    findByUserCargo
 }

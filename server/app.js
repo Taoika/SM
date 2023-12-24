@@ -5,8 +5,7 @@ const bodyParser  = require('koa-bodyparser')   //上下文解析
 const static = require('koa-static')    //静态资源服务
 const path = require('path')
 const cors = require('koa-cors')       //跨域访问组件
-const router = require('./routers/index')
-
+const registerRouter = require('./routers/index')
 
 const app = new Koa()
 
@@ -22,8 +21,7 @@ app.use(cors())
 // body解析
 app.use(bodyParser())
 
-app.use(router.routes())
-    .use(router.allowedMethods())
+registerRouter(app)
 
 app.listen(8633, () => {
     console.log("在8633端口启动成功")
