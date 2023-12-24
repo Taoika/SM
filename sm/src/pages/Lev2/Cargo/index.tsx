@@ -28,18 +28,18 @@ export default function Cargo() {
   }
 
   // 移出购物车
-  const removeFromCart = (cargoId: number) => {
-    postReq('/removeFromCart', {cargoId, userId}).then(res => {
+  const removeFromCart = (ucId: number) => {
+    postReq('/removeFromCart', ucId).then(res => {
       getUserGoods();
       getAllGoods();
     })
   }
 
   // 下单 这里暂且跳过发货步骤
-  const order = (cargoId: number) => {
+  const order = (ucId: number, quantity: number) => {
     const data = {
-      cargoId, 
-      userId, 
+      ucId, 
+      quantity,
       state: 2,
     }
     postReq('/alterCart', data).then(res => {
@@ -71,8 +71,9 @@ export default function Cargo() {
               userGoods.filter(value => value.ucState == 0).map(value => (
                 <Card.Grid className='grid goods'>
                   <p><strong>{value.cargoName}</strong></p>
-                  <Button onClick={()=>order(value.cargoId)}>下单</Button>
-                  <Button onClick={()=>removeFromCart(value.cargoId)}>删除</Button>
+                  <p><strong>数量: </strong>{value.quantity}</p>
+                  <Button onClick={()=>order(value.ucId, value.quantity)}>下单</Button>
+                  <Button onClick={()=>removeFromCart(value.ucId)}>删除</Button>
                 </Card.Grid>
               ))
             }
