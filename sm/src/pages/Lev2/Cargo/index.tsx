@@ -29,7 +29,7 @@ export default function Cargo() {
 
   // 移出购物车
   const removeFromCart = (ucId: number) => {
-    postReq('/removeFromCart', ucId).then(res => {
+    postReq('/removeFromCart', {ucId}).then(res => {
       getUserGoods();
       getAllGoods();
     })

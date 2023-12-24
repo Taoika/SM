@@ -15,16 +15,11 @@ export default function Store() {
   const { storeGoods } = useAppSelector(state => state.goods)
   const { contextHolder, getReq, postReq} = useReq()
   const dispatch = useAppDispatch()
-  const { getStoreId, getStoreGoods } = useGetInfo()
+  const { getStoreId, getStoreGoods, getMyStore } = useGetInfo()
 
   useEffect(() => { // 获取全部自己的全部店铺信息
     if(!userId) return ;
-    getReq('/storeInfo', 'userId', userId).then(
-      res => {
-        const data = res as any[];
-        dispatch(setStore(data))
-      }
-    )
+    getMyStore()
   },[userId])
 
   useEffect(()=>{
@@ -106,8 +101,6 @@ export default function Store() {
               storeGoods.filter(value => value.cargoState == 1).map(value => (
                 <Card.Grid className='grid goods'>
                   <p><strong>{value.cargoName}</strong></p>
-                  <p><strong>余货量: </strong>{value.quantity}</p>
-                  <Button>下架</Button>
                 </Card.Grid>
               ))
             }

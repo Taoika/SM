@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../store/hook';
-import { setUsername, setAddress, setPhone, setUserId } from '../store/slice/userInfo';
+import { setUsername, setAddress, setPhone, setUserId, setStore } from '../store/slice/userInfo';
 import { setStoreGoods, setUserGoods, setAllGoods } from '../store/slice/goods';
 import { useReq } from './request';
 
@@ -54,7 +54,16 @@ const useGetInfo = () => {
           })
     }
 
-    return { contextHolder, getUserInfo, getStoreId, getStoreGoods, getUserGoods, getAllGoods }
+    const getMyStore = () => {
+        getReq('/storeInfo', 'userId', userId).then(
+            res => {
+              const data = res as any[];
+              dispatch(setStore(data))
+            }
+          )
+    }
+
+    return { contextHolder, getUserInfo, getStoreId, getStoreGoods, getUserGoods, getAllGoods, getMyStore }
 }
 
 export default useGetInfo

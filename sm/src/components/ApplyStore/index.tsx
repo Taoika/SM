@@ -2,6 +2,7 @@ import './index.scss'
 import { Button, Form, Input } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { useReq } from '../../hooks/request';
+import useGetInfo from '../../hooks/useGetInfo';
 
 const layout = {
   labelCol: { span: 6 },
@@ -16,6 +17,7 @@ export default function ApplyStore() {
 
     const { userId } = useAppSelector(state => state.userInfo)
     const { contextHolder, postReq } = useReq()
+    const { getMyStore } = useGetInfo()
 
     const onFinish = (values: any) => {
         const { storeName } = values;
@@ -23,7 +25,9 @@ export default function ApplyStore() {
             userId,
             storeName,
         }
-        postReq('/applyStore', data);
+        postReq('/applyStore', data).then(res => {
+          getMyStore()
+        })
       };
 
   return (
