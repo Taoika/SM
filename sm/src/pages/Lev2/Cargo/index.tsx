@@ -2,8 +2,9 @@ import './index.scss'
 import { useEffect } from 'react';
 import { Col, Row, Card, Button } from 'antd';
 import { useAppSelector, useAppDispatch } from '../../../store/hook';
-import { setAllGoods } from '../../../store/slice/goods';
+import { setAllGoods, setUserGoods } from '../../../store/slice/goods';
 import { useReq } from '../../../hooks/request';
+import useGetInfo from '../../../hooks/useGetInfo';
 
 export default function Cargo() {
 
@@ -11,17 +12,39 @@ export default function Cargo() {
   const { allGoods, userGoods } = useAppSelector(state => state.goods)
   const { userId } = useAppSelector(state => state.userInfo)
   const { contextHolder, getReq, postReq } = useReq();
+  const { getUserGoods, getAllGoods } = useGetInfo();
 
   useEffect(()=>{ // 获取全部商品信息
-    getReq('/allGoods').then(res => {
-      const data = res as any[]
-      dispatch(setAllGoods(data))
-    })
+    getAllGoods();
+    getUserGoods();
   },[userId]);
 
+  // 添加到购物车
   const addToCart = (cargoId: number) => {
     postReq('/addToCart', {cargoId, userId}).then(res => {
+      getUserGoods();
+      getAllGoods();
+    })
+  }
 
+  // 移出购物车
+  const removeFromCart = (cargoId: number) => {
+    postReq('/removeFromCart', {cargoId, userId}).then(res => {
+      getUserGoods();
+      getAllGoods();
+    })
+  }
+
+  // 下单 这里暂且跳过发货步骤
+  const order = (cargoId: number) => {
+    const data = {
+      cargoId, 
+      userId, 
+      state: 2,
+    }
+    postReq('/alterCart', data).then(res => {
+      getUserGoods();
+      getAllGoods();
     })
   }
 
@@ -45,11 +68,11 @@ export default function Cargo() {
       <Col className='Col' span={12}>
         <Card className='Card' title={`购物车`} bordered={false}> 
             {
-              userGoods.map(value => (
+              userGoods.filter(value => value.ucState == 0).map(value => (
                 <Card.Grid className='grid goods'>
                   <p><strong>{value.cargoName}</strong></p>
-                  <p><strong>余货量: </strong>{value.quantity}</p>
-                  <Button>下单</Button>
+                  <Button onClick={()=>order(value.cargoId)}>下单</Button>
+                  <Button onClick={()=>removeFromCart(value.cargoId)}>删除</Button>
                 </Card.Grid>
               ))
             }

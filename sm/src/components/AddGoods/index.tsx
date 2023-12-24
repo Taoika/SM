@@ -21,7 +21,7 @@ export default function AddGoods() {
 
   const { contextHolder, postReq, getReq} = useReq()
   const { userId } = useAppSelector(state => state.userInfo)
-  const { getStoreId, getGoods } = useGetInfo();
+  const { getStoreId, getStoreGoods } = useGetInfo();
 
   const onFinish = (values: any) => {
     console.log(values);
@@ -30,7 +30,7 @@ export default function AddGoods() {
     if(!storeId) return;
     
     postReq('/addGoods', { storeId, cargoName, price, quantity }).then(res => {
-      getGoods()
+      getStoreGoods()
     })
   };
 

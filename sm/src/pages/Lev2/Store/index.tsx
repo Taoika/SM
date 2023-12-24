@@ -15,7 +15,7 @@ export default function Store() {
   const { storeGoods } = useAppSelector(state => state.goods)
   const { contextHolder, getReq, postReq} = useReq()
   const dispatch = useAppDispatch()
-  const { getStoreId, getGoods } = useGetInfo()
+  const { getStoreId, getStoreGoods } = useGetInfo()
 
   useEffect(() => { // 获取全部自己的全部店铺信息
     if(!userId) return ;
@@ -28,7 +28,7 @@ export default function Store() {
   },[userId])
 
   useEffect(()=>{
-    getGoods()
+    getStoreGoods()
   },[currentStore]);
 
   // 当前店铺
@@ -46,7 +46,7 @@ export default function Store() {
   }
   postReq('/removeStore', data).then(
       res => {
-        getGoods()
+        getStoreGoods()
       }
   )
   }

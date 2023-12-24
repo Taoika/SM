@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { setUsername, setAddress, setPhone, setUserId } from '../store/slice/userInfo';
-import { setStoreGoods } from '../store/slice/goods';
+import { setStoreGoods, setUserGoods, setAllGoods } from '../store/slice/goods';
 import { useReq } from './request';
 
 const useGetInfo = () => {
@@ -28,7 +28,7 @@ const useGetInfo = () => {
         return store.filter(value => value.storeName == currentStore)[0].storeId
     }
 
-    const getGoods = () => {
+    const getStoreGoods = () => {
         if(!currentStore) return -1;
         getReq('/goodsInfo', 'storeId', getStoreId()).then(
             res => {
@@ -38,7 +38,23 @@ const useGetInfo = () => {
           )
     }
 
-    return { contextHolder, getUserInfo, getStoreId, getGoods }
+    const getUserGoods = () => {
+        getReq('/cartInfo', 'userId', userId).then(res => {
+            console.log(res);
+            
+            const data = res as any[];
+            dispatch(setUserGoods(data))
+          })
+    }
+
+    const getAllGoods = () => {
+        getReq('/allGoods').then(res => {
+            const data = res as any[]
+            dispatch(setAllGoods(data))
+          })
+    }
+
+    return { contextHolder, getUserInfo, getStoreId, getStoreGoods, getUserGoods, getAllGoods }
 }
 
 export default useGetInfo
