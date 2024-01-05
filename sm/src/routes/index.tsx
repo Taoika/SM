@@ -44,7 +44,7 @@ const routes = [
     },
     {
         path: '/',
-        element: <Register />,
+        element: <Login />,
     },
 ]
 

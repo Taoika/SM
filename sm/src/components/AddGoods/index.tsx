@@ -1,7 +1,5 @@
 import './index.scss'
-import React from 'react';
 import { Button, Form, Input, InputNumber } from 'antd';
-import { useAppSelector } from '../../store/hook';
 import { useReq } from '../../hooks/request';
 import useGetInfo from '../../hooks/useGetInfo';
 
@@ -19,8 +17,7 @@ const validateMessages = {
 
 export default function AddGoods() {
 
-  const { contextHolder, postReq, getReq} = useReq()
-  const { userId } = useAppSelector(state => state.userInfo)
+  const { contextHolder, postReq} = useReq()
   const { getStoreId, getStoreGoods } = useGetInfo();
 
   const onFinish = (values: any) => {

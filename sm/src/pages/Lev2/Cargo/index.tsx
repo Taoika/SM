@@ -1,17 +1,15 @@
 import './index.scss'
 import { useEffect } from 'react';
 import { Col, Row, Card, Button } from 'antd';
-import { useAppSelector, useAppDispatch } from '../../../store/hook';
-import { setAllGoods, setUserGoods } from '../../../store/slice/goods';
+import { useAppSelector } from '../../../store/hook';
 import { useReq } from '../../../hooks/request';
 import useGetInfo from '../../../hooks/useGetInfo';
 
 export default function Cargo() {
 
-  const dispatch = useAppDispatch()
   const { allGoods, userGoods } = useAppSelector(state => state.goods)
   const { userId } = useAppSelector(state => state.userInfo)
-  const { contextHolder, getReq, postReq } = useReq();
+  const { contextHolder, postReq } = useReq();
   const { getUserGoods, getAllGoods } = useGetInfo();
 
   useEffect(()=>{ // 获取全部商品信息

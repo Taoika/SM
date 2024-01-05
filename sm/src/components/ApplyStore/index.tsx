@@ -1,6 +1,6 @@
 import './index.scss'
 import { Button, Form, Input } from 'antd';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
+import { useAppSelector } from '../../store/hook';
 import { useReq } from '../../hooks/request';
 import useGetInfo from '../../hooks/useGetInfo';
 

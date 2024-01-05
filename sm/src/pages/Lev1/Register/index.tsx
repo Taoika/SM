@@ -2,7 +2,7 @@ import './index.scss'
 import { useNavigate } from 'react-router-dom'
 import { useReq } from '../../../hooks/request';
 import { LoginOutlined } from '@ant-design/icons'
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hook';
 import { setUsername } from '../../../store/slice/userInfo';
 import {
   Button,

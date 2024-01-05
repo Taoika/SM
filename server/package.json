@@ -1,4 +1,8 @@
 {
+	"scripts": {
+		"dev": "node ./app.js",
+		"module": "pnpm i"
+	},
 	"dependencies": {
 		"glob": "^10.3.10",
 		"koa": "^2.14.2",

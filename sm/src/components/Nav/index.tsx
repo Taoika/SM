@@ -1,5 +1,5 @@
 import './index.scss'
-import { ShoppingCartOutlined, HomeOutlined, UserOutlined, ShopOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined, ShopOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 

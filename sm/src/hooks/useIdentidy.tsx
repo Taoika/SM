@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hook';
+import { useAppDispatch } from '../store/hook';
 import { setUsername } from '../store/slice/userInfo';
 
 const useIdentidy = () => {

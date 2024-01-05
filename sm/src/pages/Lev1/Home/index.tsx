@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './index.scss'
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
-import { setUsername, setAddress, setPhone, setUserId } from '../../../store/slice/userInfo';
+import { setUsername } from '../../../store/slice/userInfo';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons'
 import Nav from '../../../components/Nav';

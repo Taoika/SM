@@ -7,7 +7,7 @@ const useReq = () => {
 
     const postReq = (api: string, data: any) => {
         return new Promise((resolve, reject) => {
-            axios.post(`http://localhost:8633${api}`, data).then(
+            axios.post(`http://121.37.254.233/sm${api}`, data).then(
                 res => {
                   if(res.data.code == 200) {
                     messageApi.open({
@@ -38,7 +38,7 @@ const useReq = () => {
     const getReq = (api: string, query?: string, value?: string) => {
       return new Promise((resolve: any) => {
         
-        axios.get(`http://localhost:8633${api}${query ? `?${query}=${value}` : ''}`).then(
+        axios.get(`http://121.37.254.233/sm${api}${query ? `?${query}=${value}` : ''}`).then(
           res => {
             if(res.data.code == 200) {
               resolve(res.data.resd)

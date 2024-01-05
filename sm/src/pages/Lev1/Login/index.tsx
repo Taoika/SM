@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PicCenterOutlined } from '@ant-design/icons'
 import { Button, Form, Input } from 'antd';
 import { useReq } from '../../../hooks/request';
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hook';
 import { setUsername } from '../../../store/slice/userInfo';
 
 const onFinishFailed = (errorInfo: any) => {

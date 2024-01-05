@@ -5,6 +5,7 @@ const registerRouter = (app) => { // 路由注册
         .filter(value => value.indexOf('index.js') === -1)
         .forEach(value => {
             const router = require(`./${value.split('\\')[1]}`)
+            // const router = require(`./${value.split('/')[1]}`)
             app.use(router.routes())
             .use(router.allowedMethods());
         })

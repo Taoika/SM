@@ -5,17 +5,16 @@ import AddGoods from '../../../components/AddGoods';
 import ApplyStore from '../../../components/ApplyStore';
 import { useReq } from '../../../hooks/request';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
-import { setStore, setCurrentStore } from '../../../store/slice/userInfo';
-import { setStoreGoods } from '../../../store/slice/goods';
+import { setCurrentStore } from '../../../store/slice/userInfo';
 import useGetInfo from '../../../hooks/useGetInfo';
 
 export default function Store() {
 
   const { userId, store, currentStore } = useAppSelector(state => state.userInfo)
   const { storeGoods } = useAppSelector(state => state.goods)
-  const { contextHolder, getReq, postReq} = useReq()
+  const { contextHolder, postReq} = useReq()
   const dispatch = useAppDispatch()
-  const { getStoreId, getStoreGoods, getMyStore } = useGetInfo()
+  const { getStoreGoods, getMyStore } = useGetInfo()
 
   useEffect(() => { // 获取全部自己的全部店铺信息
     if(!userId) return ;
